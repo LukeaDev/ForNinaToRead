@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dear Ninaa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-violet-100 to-pink-200 text-gray-800 flex items-center justify-center min-h-screen p-4">
+    <div class="max-w-md w-full text-base sm:text-lg md:text-xl leading-relaxed bg-white bg-opacity-80 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-violet-200">  
+    <p class="mb-4 font-semibold">To: Ninaa (yes, with the double A because you're that special mwehehe)</p>
+
+    <p class="mb-4">Hey Ninaa :)</p>
+
+    <p class="mb-4">So I don’t know how to start this without sounding super cheesy, but here goes nothing.</p>
+
+    <p class="mb-4">I’ve been meaning to say this for a while now and I figured graduation night was the perfect time. I'm writing this with a mix of butterflies and late-night feelings, probably a little too emotional from the whole “we're done with high school” thing. But more than anything, I’m thinking about you.</p>
+
+    <p class="mb-4">I still remember the first time we met. March 20, 2024, during our Grade 11 recollection. Honestly, I didn't expect that day to stick with me as much as it did. But then you showed up, and I saw your eyes. Those pretty eyes. They seriously made me pause for a second. Not kidding, I think I got distracted mid-prayer because of you. Sorry, Lord.</p>
+
+    <p class="mb-4">Fast forward to Valentine’s Day. I gave you a flower. Not just any flower, but your favorite one, the lily, and I made sure it had your other favorite color, violet. I didn’t say too much then, but the truth is, I gave it to you because that day reminded me of you. Simple. Sweet. Just like how I see you.</p>
+
+    <p class="mb-4">And now, here I am, writing this while graduation just happened. You looked so pretty out there, walking proudly between your mom and dad. I had to pretend to look away so people wouldn't see me smiling like an idiot. You honestly stole the show.</p>
+
+    <p class="mb-4">I know from your friends that you're really focused on your studies right now, and I honestly admire that about you. It shows how driven and thoughtful you are. I just want you to know that I’m here. I’m willing to wait, no matter how long. I’m not asking for anything big. I just hope that maybe someday, we get to talk more, even just a little. For now, I’ll be quietly cheering you on, proud of the person you’re becoming, and hoping that one day, our paths get a little closer.</p>
+
+    <p class="mb-4">This isn’t some dramatic movie moment or anything. Just a real letter from a real guy who caught feelings for a real, amazing girl.</p>
+
+    <p class="mb-6">So yeah… I like you, Ninaa. And I hope this made you smile, even just a little.</p>
+
+    <p>From the guy who still can’t get over your eyes, <br>Luke <3</p>
+  </div>
+
+<div id="hearts-container" class="fixed inset-0 pointer-events-none z-50 hidden"></div>
+
+<script>
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "absolute text-pink-400 text-2xl animate-float-heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
+    document.getElementById("hearts-container").appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 3000);
+  }
+
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const innerHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+
+    if (scrollY + innerHeight >= bodyHeight - 10) {
+      const heartContainer = document.getElementById("hearts-container");
+      if (heartContainer.classList.contains("hidden")) {
+        heartContainer.classList.remove("hidden");
+
+        for (let i = 0; i < 20; i++) {
+          setTimeout(createHeart, i * 150);
+        }
+      }
+    }
+  });
+</script>
+
+<style>
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-200px) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  .animate-float-heart {
+    animation: floatUp 3s ease-out forwards;
+  }
+</style>
+
+</body>
+</html>
