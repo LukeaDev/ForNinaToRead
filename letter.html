@@ -5,9 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dear Ninaa</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Flower animation */
+    @keyframes floatFlower {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-10px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .flower {
+      position: fixed;
+      z-index: 100;
+      animation: floatFlower 4s ease-in-out infinite;
+      width: 60px; /* Adjust flower size */
+      height: auto;
+      cursor: grab;
+      left: 50%; /* Start in the center */
+      top: 50%; /* Start in the center */
+      transform: translate(-50%, -50%); /* Adjust position to the exact center */
+    }
+
+    /* Lily flower */
+    .flower img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 <body class="bg-gradient-to-br from-pink-100 via-violet-100 to-pink-200 text-gray-800 flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-md w-full text-base sm:text-lg md:text-xl leading-relaxed bg-white bg-opacity-80 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-violet-200">  
+  <div class="max-w-md w-full text-base sm:text-lg md:text-xl leading-relaxed bg-white bg-opacity-80 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-violet-200">  
     <p class="mb-4 font-semibold">To: Ninaa (yes, with the double A because you're that special mwehehe)</p>
 
     <p class="mb-4">Hey Ninaa :)</p>
@@ -31,57 +66,89 @@
     <p>From the guy who still can’t get over your eyes, <br>Luke <3</p>
   </div>
 
-<div id="hearts-container" class="fixed inset-0 pointer-events-none z-50 hidden"></div>
+  <div id="hearts-container" class="fixed inset-0 pointer-events-none z-50 hidden"></div>
 
-<script>
+  <div class="flower" id="draggable-flower">
+    <img src="https://i.pinimg.com/736x/af/62/e7/af62e79646cb6290c84bef128db95181.jpg" alt="Lily Flower">
+  </div>
 
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "absolute text-pink-400 text-2xl animate-float-heart";
-    heart.innerHTML = "❤";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "100vh";
-    document.getElementById("hearts-container").appendChild(heart);
+  <script>
+    // Make the flower draggable
+    const flower = document.getElementById('draggable-flower');
+    let isDragging = false;
+    let offsetX, offsetY;
 
-    setTimeout(() => {
-      heart.remove();
-    }, 3000);
-  }
+    flower.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      const touch = e.touches[0];
+      offsetX = touch.clientX - flower.getBoundingClientRect().left;
+      offsetY = touch.clientY - flower.getBoundingClientRect().top;
+      flower.style.cursor = 'grabbing';
+    });
 
-  window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    const innerHeight = window.innerHeight;
-    const bodyHeight = document.body.offsetHeight;
+    document.addEventListener('touchmove', (e) => {
+      if (isDragging) {
+        const touch = e.touches[0];
+        const x = touch.clientX - offsetX;
+        const y = touch.clientY - offsetY;
+        flower.style.left = `${x}px`;
+        flower.style.top = `${y}px`;
+      }
+    });
 
-    if (scrollY + innerHeight >= bodyHeight - 10) {
-      const heartContainer = document.getElementById("hearts-container");
-      if (heartContainer.classList.contains("hidden")) {
-        heartContainer.classList.remove("hidden");
+    document.addEventListener('touchend', () => {
+      isDragging = false;
+      flower.style.cursor = 'grab';
+    });
 
-        for (let i = 0; i < 20; i++) {
-          setTimeout(createHeart, i * 150);
+    // Hearts animation effect
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "absolute text-pink-400 text-2xl animate-float-heart";
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100vh";
+      document.getElementById("hearts-container").appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 3000);
+    }
+
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      const innerHeight = window.innerHeight;
+      const bodyHeight = document.body.offsetHeight;
+
+      if (scrollY + innerHeight >= bodyHeight - 10) {
+        const heartContainer = document.getElementById("hearts-container");
+        if (heartContainer.classList.contains("hidden")) {
+          heartContainer.classList.remove("hidden");
+
+          for (let i = 0; i < 20; i++) {
+            setTimeout(createHeart, i * 150);
+          }
         }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
-<style>
-  @keyframes floatUp {
-    0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+  <style>
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.2);
+        opacity: 0;
+      }
     }
-    100% {
-      transform: translateY(-200px) scale(1.2);
-      opacity: 0;
-    }
-  }
 
-  .animate-float-heart {
-    animation: floatUp 3s ease-out forwards;
-  }
-</style>
+    .animate-float-heart {
+      animation: floatUp 3s ease-out forwards;
+    }
+  </style>
 
 </body>
 </html>
